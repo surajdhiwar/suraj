@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Company Data Chart</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="container mt-4">
+        <div class="row">
+            <!-- Company List -->
+            <div class="col-md-4">
+                <ul class="list-group" id="companyList">
+                    <li class="list-group-item" onclick="showChart('Company A')">Company A</li>
+                    <li class="list-group-item" onclick="showChart('Company B')">Company B</li>
+                    <li class="list-group-item" onclick="showChart('Company C')">Company C</li>
+                </ul>
+            </div>
+            <!-- Chart Display -->
+            <div class="col-md-8">
+                <canvas id="companyChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let companyData = {
+            "Company A": [10, 20, 30, 40, 50],
+            "Company B": [15, 25, 35, 45, 55],
+            "Company C": [5, 15, 25, 35, 45]
+        };
+
+        let ctx = document.getElementById('companyChart').getContext('2d');
+        let chart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May'],
+                datasets: [{
+                    label: 'Company Data',
+                    data: [],
+                    borderColor: 'blue',
+                    fill: false
+                }]
+            }
+        });
+
+        function showChart(company) {
+            chart.data.datasets[0].data = companyData[company];
+            chart.data.datasets[0].label = company;
+            chart.update();
+        }
+    </script>
+</body>
+</html>
